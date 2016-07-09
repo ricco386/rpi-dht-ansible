@@ -2,7 +2,7 @@ galaxy_info:
   author: Richard Kellner
   description: Ansible role for installing RPi.DHT sensor (https://github.com/ricco386/RPi.DHT) or Raspberry Pi.
 
-  issue_tracker_url: https://github.com/ricco386/rpi-dht-ansible/issue/tracker
+  issue_tracker_url: https://github.com/ricco386/rpi-dht-ansible/issues
 
   license: license (MIT)
 
