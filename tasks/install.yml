@@ -1,0 +1,28 @@
+---
+- name: Install PIP RPi.Sensor
+  register: install_rpi_sensor
+  become: yes
+  become_method: sudo
+  pip: name='git+https://github.com/ricco386/RPi.Sensor.git' editable=false
+
+- name: Install Adafruit Python DHT system dependency {{ item }}
+  register: adafruit_python_dht_dependencies
+  become: yes
+  become_method: sudo
+  apt: name={{ item }} state=present
+  with_items:
+       - build-essential
+       - python-dev 
+
+- name: Install PIP Adafruit Python DHT library
+  register: adafruit_python_dht
+  become: yes
+  become_method: sudo
+  pip: name='git+https://github.com/adafruit/Adafruit_Python_DHT.git' editable=false
+  when: adafruit_python_dht_dependencies|success and not adafruit_python_dht_dependencies|skipped
+
+- name: Install PIP RPi.DHT
+  become: yes
+  become_method: sudo
+  pip: name='git+https://github.com/ricco386/RPi.DHT.git' editable=false
+  when: install_rpi_sensor|success and not install_rpi_sensor|skipped and adafruit_python_dht|success and not adafruit_python_dht|skipped

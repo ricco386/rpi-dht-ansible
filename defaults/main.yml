@@ -1,0 +1,16 @@
+---
+# Development version, whether to clone GIT repo
+rpi_dht_dev: False
+
+# Sensor configuration
+rpi_dht_config: /root/.sensor.cfg
+rpi_dht_config_node_id: 1
+rpi_dht_config_hostname: False
+rpi_dht_config_username: False
+rpi_dht_config_password: False
+
+# Sensor service
+rpi_dht_service: True
+
+# Raspberry Pi user
+rpi_dht_username: pi

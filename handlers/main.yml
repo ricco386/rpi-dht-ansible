@@ -1,0 +1,3 @@
+---
+- name: Enable and start RPi.DHT service
+  service: name=rpi-dht state=started enabled=yes

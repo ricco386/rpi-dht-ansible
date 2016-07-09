@@ -1,0 +1,11 @@
+---
+- name: Include rpi-dht development tasks
+  include: development.yml
+  when: rpi_dht_dev
+
+- include: configuration.yml
+- include: install.yml
+
+- name: Start rpi-dht service
+  include: service.yml
+  when: rpi_dht_service

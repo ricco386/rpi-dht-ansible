@@ -1,0 +1,30 @@
+---
+- name: Download RPi.DHT sample config filie
+  register: create_config
+  become: yes
+  become_method: sudo
+  get_url: url=https://raw.githubusercontent.com/ricco386/RPi.DHT/master/rpi_dht/sensor.cfg.example dest={{ rpi_dht_config }}
+
+- name: Set node in config
+  become: yes
+  become_method: sudo
+  lineinfile: dest={{ rpi_dht_config }} regexp="^#?node_id" line="node_id = {{ rpi_dht_config_node_id }}"
+  when: rpi_dht_config_node_id
+
+- name: Set hostname in config
+  become: yes
+  become_method: sudo
+  lineinfile: dest={{ rpi_dht_config }} regexp="^#?hostname" line="hostname = {{ rpi_dht_config_hostname }}"
+  when: rpi_dht_config_hostname
+
+- name: Set username in config
+  become: yes
+  become_method: sudo
+  lineinfile: dest={{ rpi_dht_config }} regexp="^#?username" line="username = {{ rpi_dht_config_username }}"
+  when: rpi_dht_config_username
+
+- name: Set password in config
+  become: yes
+  become_method: sudo
+  lineinfile: dest={{ rpi_dht_config }} regexp="^#?password" line="password = {{ rpi_dht_config_password }}"
+  when: rpi_dht_config_password

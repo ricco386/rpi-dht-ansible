@@ -1,0 +1,9 @@
+---
+- name: Creates Projects directory
+  file: path=/home/{{ rpi_dht_username }}/Projects state=directory
+
+- name: Clone RPi.Sensor repo
+  git: repo=https://github.com/ricco386/RPi.Sensor.git dest=/home/{{ rpi_dht_username }}/Projects/RPi.Sensor
+
+- name: Clone RPi.DHT repo
+  git: repo=https://github.com/ricco386/RPi.DHT.git dest=/home/{{ rpi_dht_username }}/Projects/RPi.DHT

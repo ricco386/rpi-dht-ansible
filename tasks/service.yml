@@ -1,0 +1,24 @@
+---
+- stat: path=/etc/tmpfiles.d/rpi-dht.conf
+  register: check_systemd_conf
+
+- name: Download RPi.DHT systemd conf file
+  register: download_systemd_conf
+  become: yes
+  become_method: sudo
+  get_url: url=https://raw.githubusercontent.com/ricco386/RPi.DHT/master/init.d/rpi-dht.conf dest=/etc/tmpfiles.d/rpi-dht.conf
+  when: check_systemd_conf.stat.exists == False
+
+- name: Create RPi.DHT systemd conf file
+  register: create_systemd_conf
+  become: yes
+  become_method: sudo
+  command: systemd-tmpfiles --create /etc/tmpfiles.d/rpi-dht.conf
+  when: download_systemd_conf|success and not download_systemd_conf|skipped
+ 
+- name: Download RPi.DHT systemd service filie
+  become: yes
+  become_method: sudo
+  get_url: url=https://raw.githubusercontent.com/ricco386/RPi.DHT/master/init.d/rpi-dht.service dest=/etc/systemd/system/rpi-dht.service
+  when: create_systemd_conf|success and not create_systemd_conf|skipped
+  notify: Enable and start RPi.DHT service
